@@ -3,7 +3,7 @@ import { Search, Target, Trash2, RefreshCw, Plus, Wallet, Info } from 'lucide-re
 
 const App = () => {
   const [ticker, setTicker] = useState('');
-  const [favorites, setFavorites] = useState([]);
+  const [favorites, setFavorites] = useState([] as any[]);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null as string | null);
 
@@ -18,7 +18,7 @@ const App = () => {
     if (saved) setFavorites(JSON.parse(saved));
   }, []);
 
-  const fetchAssetData = async (symbol) => {
+  const fetchAssetData = async (symbol: string) => {
     if (!symbol) return;
     setLoading(true);
     setError(null);
@@ -60,21 +60,21 @@ const App = () => {
     }
   }
 
-  const updateAssetField = (symbol, field, value) => {
+  const updateAssetField = (symbol: string, field: string, value: string) => {
     setFavorites(prev => prev.map(asset => 
       asset.symbol === symbol ? { ...asset, [field]: parseFloat(value) || 0 } : asset
     ));
   };
 
-  const calculateMagic = (asset) => {
+  const calculateMagic = (asset: any) => {
     if (!asset.rendimentoCota || asset.rendimentoCota <= 0) return 0;
     // Preço da cota dividido pelo rendimento mensal
     return Math.ceil(asset.price / asset.rendimentoCota);
   };
 
-  const removeAsset = (sym) => setFavorites(favorites.filter(a => a.symbol !== sym));
+  const removeAsset = (sym: string) => setFavorites(favorites.filter(a => a.symbol !== sym));
 
-  const formatBRL = (val) => val.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' });
+  const formatBRL = (val: number) => val.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' });
 
   return (
     <div className="min-h-screen bg-[#f8fafc] p-4 md:p-8 font-sans text-slate-800">
