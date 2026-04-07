@@ -5,9 +5,10 @@
   "type": "module",
   "scripts": {
     "dev": "vite",
-    "build": "tsc -b && vite build",
+    "build": "tsc -b && vite build && npm run format_file",
     "lint": "eslint .",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "format_file": "tsc && sed -i 's/\"\\//\".\\//g' dist/index.html"
   },
   "dependencies": {
     "@tailwindcss/vite": "^4.2.2",
